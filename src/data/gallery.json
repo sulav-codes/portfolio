@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Annapurna Sunrise",
+    "category": "photography",
+    "imageUrl": "https://images.pexels.com/photos/1365425/pexels-photo-1365425.jpeg",
+    "description": "Golden hour at Annapurna Base Camp"
+  },
+  {
+    "id": 2,
+    "title": "Milky Way over Kathmandu Valley",
+    "category": "photography",
+    "imageUrl": "https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg",
+    "description": "Astrophotography from the hills"
+  },
+  {
+    "id": 3,
+    "title": "Street Jazz",
+    "category": "music",
+    "imageUrl": "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg",
+    "description": "Live performance at Thamel"
+  },
+  {
+    "id": 4,
+    "title": "Mountain Reflections",
+    "category": "photography",
+    "imageUrl": "https://images.pexels.com/photos/1437743/pexels-photo-1437743.jpeg",
+    "description": "Lake reflection in Pokhara"
+  },
+  {
+    "id": 5,
+    "title": "Code & Coffee",
+    "category": "artwork",
+    "imageUrl": "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg",
+    "description": "Digital illustration"
+  },
+  {
+    "id": 6,
+    "title": "Night Market",
+    "category": "photography",
+    "imageUrl": "https://images.pexels.com/photos/1708912/pexels-photo-1708912.jpeg",
+    "description": "Urban photography"
+  }
+]

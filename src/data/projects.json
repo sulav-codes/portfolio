@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Smart QR Menu System",
+    "description": "Digital menu system with QR code integration for restaurants, allowing contactless ordering and real-time menu management",
+    "techStack": ["JavaScript", "Node.js", "Express", "MongoDB"],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/sulav-codes/smart-qr-menu-system"
+  },
+  {
+    "id": 2,
+    "title": "Kaushal - Skill Management Platform",
+    "description": "Platform for managing and showcasing professional skills, connecting learners with opportunities",
+    "techStack": ["JavaScript", "React", "Node.js", "Express"],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/sulav-codes/Kaushal"
+  },
+  {
+    "id": 3,
+    "title": "eSewa Payment Integration",
+    "description": "PHP implementation for integrating eSewa payment gateway in web applications for secure online transactions",
+    "techStack": ["PHP", "MySQL", "JavaScript", "HTML/CSS"],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/sulav-codes/EsewaIntegration"
+  },
+  {
+    "id": 4,
+    "title": "Mental Health Support Platform",
+    "description": "Web platform providing mental health resources, support groups, and professional consultation services",
+    "techStack": ["PHP", "MySQL", "JavaScript", "Bootstrap"],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/sulav-codes/Mental-Health-Support-Platform"
+  },
+  {
+    "id": 5,
+    "title": "Blog Platform",
+    "description": "Full-featured blogging platform with user authentication, rich text editor, and content management",
+    "techStack": ["JavaScript", "Node.js", "Express", "MongoDB"],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/sulav-codes/blog_platform"
+  },
+  {
+    "id": 6,
+    "title": "Admin Dashboard",
+    "description": "Responsive admin dashboard with analytics, user management, and data visualization capabilities",
+    "techStack": ["JavaScript", "React", "Chart.js", "Tailwind CSS"],
+    "liveUrl": null,
+    "githubUrl": "https://github.com/sulav-codes/Admin_Dashboard"
+  }
+]
