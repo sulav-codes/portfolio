@@ -63,7 +63,7 @@ export function Hero() {
   return (
     <section
       ref={heroRef}
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 pb-16 sm:pb-20 md:pb-24 l will-change-transform"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 sm:py-20 md:py-24 will-change-transform"
       style={{ transform: "translateZ(0)" }}
     >
       {/* Animated background layers */}
