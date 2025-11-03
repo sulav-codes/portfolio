@@ -43,9 +43,17 @@ const skills = [
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "MongoDB", "PostgreSQL", "REST APIs"],
+    items: [
+      "Node.js",
+      "Express",
+      "Django",
+      "MySQL",
+      "MongoDB",
+      "PostgreSQL",
+      "RESTful APIs",
+    ],
   },
-  { category: "Tools", items: ["Git", "Docker", "VS Code", "Figma", "Linux"] },
+  { category: "Tools", items: ["Git", "Postman", "VS Code", "Figma", "Linux"] },
 ];
 
 export function About() {
