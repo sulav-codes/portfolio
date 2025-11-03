@@ -25,7 +25,7 @@ export default function Home() {
     "@id": "https://www.sulav-neupane.com.np/#person",
     name: "Sulav Neupane",
     url: "https://www.sulav-neupane.com.np",
-    image: "https://www.sulav-neupane.com.np/profile.jpg",
+    image: "https://www.sulav-neupane.com.np/profile.jpeg",
     jobTitle: "Full Stack Web Developer",
     description:
       "Full Stack Web Developer from Nepal specializing in React, Next.js, TypeScript, Node.js, and Django",
