@@ -114,8 +114,11 @@ export default function RootLayout({
       "Full Stack Web Developer from Nepal specializing in React, Next.js, TypeScript, Node.js, and Django",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Remote",
+      addressLocality: "Bharatpur",
+      addressRegion: "Bagmati",
+      postalCode: "44200",
       addressCountry: "NP",
-      addressLocality: "Nepal",
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -211,7 +214,11 @@ export default function RootLayout({
     ],
     address: {
       "@type": "PostalAddress",
-      addressCountry: "Nepal",
+      streetAddress: "Remote",
+      addressLocality: "Kathmandu",
+      addressRegion: "Bagmati",
+      postalCode: "44600",
+      addressCountry: "NP",
     },
     email: "sulavneupane1905@gmail.com",
   };
