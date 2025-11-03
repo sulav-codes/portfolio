@@ -6,10 +6,9 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title:
-    "Sulav Neupane - Full Stack Web Developer Portfolio | React, Next.js, TypeScript Expert from Nepal",
+  title: "Sulav Neupane | Full Stack Developer",
   description:
-    "Professional portfolio of Sulav Neupane - Full Stack Web Developer from Nepal specializing in React, Next.js, TypeScript, Node.js, Django. BCA student with expertise in modern web development, API design, and creative problem-solving. Available for freelance projects and opportunities.",
+    "Full Stack Developer from Nepal specializing in React, Next.js, TypeScript, Node.js & Django. Building modern web applications. Available for projects.",
   keywords: [
     "Sulav Neupane",
     "Full Stack Developer",
@@ -63,22 +62,37 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://www.sulav-neupane.com.np",
-    title: "Sulav Neupane - Full Stack Web Developer from Nepal",
+    title: "Sulav Neupane - Full Stack Developer",
     description:
-      "Professional full stack web developer specializing in React, Next.js, TypeScript, Node.js, and Django. Building modern, scalable web applications with expertise in frontend and backend development.",
+      "Full Stack Developer specializing in React, Next.js, TypeScript, Node.js & Django. Building modern web applications.",
     siteName: "Sulav Neupane Portfolio",
+    images: [
+      {
+        url: "https://www.sulav-neupane.com.np/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Sulav Neupane - Full Stack Web Developer Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sulav Neupane - Full Stack Web Developer",
+    title: "Sulav Neupane - Full Stack Developer",
     description:
-      "Full Stack Developer from Nepal | React, Next.js, TypeScript, Node.js, Django | Building modern web applications",
+      "Full Stack Developer from Nepal | React, Next.js, TypeScript, Node.js, Django",
     creator: "@sulav_neupane",
+    images: ["https://www.sulav-neupane.com.np/og-image.jpg"],
   },
   alternates: {
     canonical: "https://www.sulav-neupane.com.np",
   },
   category: "Technology",
+  other: {
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:image:alt": "Sulav Neupane - Full Stack Web Developer Portfolio",
+    "twitter:image:alt": "Sulav Neupane - Full Stack Web Developer Portfolio",
+  },
 };
 
 export default function RootLayout({

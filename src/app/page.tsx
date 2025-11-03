@@ -12,6 +12,7 @@ import { Footer } from "@/components/sections/Footer";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { EasterEggs } from "@/components/EasterEggs";
+import { SocialShare } from "@/components/SocialShare";
 import SEO from "@/components/SEO";
 
 export default function Home() {
@@ -275,6 +276,7 @@ export default function Home() {
               <Footer />
             </motion.div>
             <FloatingActionButton />
+            <SocialShare />
           </motion.main>
         )}
       </AnimatePresence>
