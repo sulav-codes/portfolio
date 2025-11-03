@@ -100,33 +100,54 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Organization/Personal Brand Schema for the entire site
-  const organizationSchema = {
+  // Local Business Schema - Freelance Developer
+  const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://www.sulav-neupane.com.np/#organization",
-    name: "Sulav Neupane",
+    "@type": "ProfessionalService",
+    "@id": "https://www.sulav-neupane.com.np/#business",
+    name: "Sulav Neupane - Web Development Services",
     alternateName: "Sulav Neupane Portfolio",
     url: "https://www.sulav-neupane.com.np",
     logo: "https://www.sulav-neupane.com.np/logo.png",
+    image: "https://www.sulav-neupane.com.np/og-image.jpg",
     description:
       "Full Stack Web Developer from Nepal specializing in React, Next.js, TypeScript, Node.js, and Django",
-    founder: {
-      "@type": "Person",
-      name: "Sulav Neupane",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "NP",
+      addressLocality: "Nepal",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "27.7172",
+      longitude: "85.3240",
+    },
+    email: "sulavneupane1905@gmail.com",
+    priceRange: "$$",
+    telephone: "+977",
+    areaServed: {
+      "@type": "Place",
+      name: "Worldwide",
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
     },
     sameAs: [
       "https://github.com/sulav-codes",
       "https://linkedin.com/in/sulav-neupane",
       "https://instagram.com/alright_.y._then",
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      email: "sulavneupane1905@gmail.com",
-      contactType: "Professional Services",
-      areaServed: "Worldwide",
-      availableLanguage: ["English", "Nepali"],
-    },
   };
 
   // WebPage Schema for SEO
@@ -210,26 +231,12 @@ export default function RootLayout({
     inLanguage: "en-US",
   };
 
-  // Professional Service Schema
-  const professionalServiceSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": "https://www.sulav-neupane.com.np/#service",
-    name: "Sulav Neupane - Web Development Services",
-    description:
-      "Professional web development services including full-stack development, React, Next.js, TypeScript, Node.js, and Django applications",
-    provider: {
-      "@id": "https://www.sulav-neupane.com.np/#person",
-    },
-    areaServed: "Worldwide",
-    availableLanguage: ["English", "Nepali"],
-    priceRange: "$$",
-  };
-
   // FAQ Schema
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": "https://www.sulav-neupane.com.np/#faq",
+    url: "https://www.sulav-neupane.com.np",
     mainEntity: [
       {
         "@type": "Question",
@@ -317,11 +324,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Organization Schema */}
+        {/* Local Business Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
+            __html: JSON.stringify(localBusinessSchema),
           }}
         />
         {/* WebPage Schema */}
@@ -338,13 +345,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        {/* Professional Service Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(professionalServiceSchema),
-          }}
         />
         {/* FAQ Schema */}
         <script
