@@ -74,7 +74,7 @@ export function Contact() {
               className="text-sm sm:text-base md:text-lg px-4 sm:px-6 md:px-8 py-4 sm:py-5 group relative overflow-hidden w-full sm:w-auto"
             >
               <a
-                href="mailto:sulav.neupane@example.com"
+                href="mailto:sulavneupane1905@gmail.com"
                 className="flex items-center justify-center"
               >
                 <motion.div
@@ -84,7 +84,7 @@ export function Contact() {
                   transition={{ duration: 0.5 }}
                 />
                 <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:rotate-45 transition-transform duration-300" />
-                <span className="truncate">sulav.neupane@example.com</span>
+                <span className="truncate">sulavneupane1905@gmail.com</span>
               </a>
             </Button>
           </motion.div>
