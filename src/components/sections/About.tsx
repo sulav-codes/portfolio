@@ -113,11 +113,16 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 * index }}
+                whileHover={{ scale: 1.03, y: -5 }}
                 className="bg-secondary/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border hover:border-primary/50 transition-all hover:shadow-lg group"
               >
-                <h4 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-primary group-hover:scale-105 transition-transform">
+                <motion.h4
+                  className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-primary"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   {skill.category}
-                </h4>
+                </motion.h4>
                 <div className="flex flex-wrap gap-2">
                   {skill.items.map((item, i) => (
                     <motion.span
@@ -151,17 +156,28 @@ export function About() {
             {interests.map((interest, index) => (
               <motion.div
                 key={interest.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.05 * index }}
-                whileHover={{ scale: 1.05 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.05 * index,
+                  type: "spring",
+                  stiffness: 200,
+                }}
+                whileHover={{ scale: 1.1, y: -3 }}
+                whileTap={{ scale: 0.95 }}
                 className="group"
               >
-                <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary/50 border border-border hover:border-primary/50 hover:bg-secondary transition-all cursor-default">
-                  <interest.icon
-                    className={`h-4 w-4 sm:h-5 sm:w-5 ${interest.color}`}
-                  />
+                <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary/50 border border-border hover:border-primary/50 hover:bg-secondary transition-all cursor-pointer">
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <interest.icon
+                      className={`h-4 w-4 sm:h-5 sm:w-5 ${interest.color}`}
+                    />
+                  </motion.div>
                   <span className="text-sm sm:text-base font-medium">
                     {interest.label}
                   </span>

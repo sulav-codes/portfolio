@@ -104,8 +104,8 @@ export function Contact() {
                 whileHover={{
                   scale: 1.2,
                   y: -8,
-                  rotate: [0, -10, 10, -10, 0],
-                  transition: { duration: 0.5 },
+                  rotate: 5,
+                  transition: { duration: 0.3 },
                 }}
                 whileTap={{ scale: 0.9 }}
                 className={`text-muted-foreground transition-colors ${social.color} relative p-3 sm:p-4 rounded-full bg-secondary/50 hover:bg-secondary`}
@@ -130,21 +130,34 @@ export function Contact() {
 
           {/* Location info */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.6, type: "spring" }}
+            whileHover={{ scale: 1.02 }}
             className="text-center mt-4 sm:mt-8 bg-secondary/30 rounded-xl p-4 sm:p-6 border border-border"
           >
-            <p className="text-xs sm:text-sm text-muted-foreground mb-2">
+            <motion.p
+              className="text-xs sm:text-sm text-muted-foreground mb-2"
+              animate={{ y: [0, -2, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
               📍 Currently based in{" "}
               <span className="text-foreground font-semibold">Nepal</span>
-            </p>
+            </motion.p>
             <p className="text-xs sm:text-sm text-muted-foreground">
               Open to{" "}
-              <span className="text-primary font-semibold">
+              <motion.span
+                className="text-primary font-semibold inline-block"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
                 remote opportunities
-              </span>{" "}
+              </motion.span>{" "}
               worldwide
             </p>
           </motion.div>

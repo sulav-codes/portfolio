@@ -98,39 +98,49 @@ export function Projects() {
                 </CardContent>
                 <CardFooter className="flex gap-2 pt-3">
                   {project.liveUrl && (
+                    <motion.div
+                      className="flex-1"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Button
+                        size="sm"
+                        variant="default"
+                        asChild
+                        className="w-full text-xs sm:text-sm"
+                      >
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                          Live Demo
+                        </a>
+                      </Button>
+                    </motion.div>
+                  )}
+                  <motion.div
+                    className={project.liveUrl ? "flex-1" : "w-full"}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
                     <Button
                       size="sm"
-                      variant="default"
+                      variant="outline"
                       asChild
-                      className="flex-1 text-xs sm:text-sm"
+                      className="w-full text-xs sm:text-sm"
                     >
                       <a
-                        href={project.liveUrl}
+                        href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <ExternalLink className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                        Live Demo
+                        <Github className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                        GitHub
                       </a>
                     </Button>
-                  )}
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    asChild
-                    className={`${
-                      project.liveUrl ? "flex-1" : "w-full"
-                    } text-xs sm:text-sm`}
-                  >
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                      GitHub
-                    </a>
-                  </Button>
+                  </motion.div>
                 </CardFooter>
               </Card>
             </motion.div>

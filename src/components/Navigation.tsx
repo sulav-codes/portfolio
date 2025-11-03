@@ -44,10 +44,14 @@ export function Navigation() {
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 will-change-transform ${
           isScrolled
-            ? "bg-background/90 backdrop-blur-lg border-b shadow-lg"
+            ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg"
             : "bg-transparent"
         }`}
-        style={{ transform: "translateZ(0)" }}
+        style={{ 
+          transform: "translateZ(0)",
+          backdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "none",
+          WebkitBackdropFilter: isScrolled ? "blur(20px) saturate(180%)" : "none"
+        }}
       >
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14 sm:h-16">
