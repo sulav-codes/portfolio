@@ -14,6 +14,7 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { EasterEggs } from "@/components/EasterEggs";
 import { SocialShare } from "@/components/SocialShare";
 import SEO from "@/components/SEO";
+import FAQSchema from "@/components/FAQSchema";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,6 +31,7 @@ export default function Home() {
   return (
     <>
       <SEO />
+      <FAQSchema />
       <LoadingScreen />
       <EasterEggs />
       <AnimatePresence>
