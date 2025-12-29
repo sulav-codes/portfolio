@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -15,6 +16,17 @@ const navItems = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  };
 
   useEffect(() => {
     let ticking = false;
@@ -31,6 +43,21 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     element?.scrollIntoView({ behavior: "smooth" });
@@ -42,7 +69,7 @@ export function Navigation() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 will-change-transform ${
+        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 will-change-transform ${
           isScrolled
             ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg"
             : "bg-transparent"
@@ -97,7 +124,7 @@ export function Navigation() {
               </div>
             </motion.a>
 
-            <div className="hidden md:flex items-center gap-6 lg:gap-8">
+            <div className="hidden md:flex items-center gap-4 lg:gap-6">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.label}
@@ -127,27 +154,63 @@ export function Navigation() {
                   </motion.span>
                 </motion.a>
               ))}
+
+              {/* Theme Toggle - Desktop */}
+              {mounted && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleTheme}
+                  className="ml-2"
+                  aria-label="Toggle theme"
+                >
+                  {theme === "dark" ? (
+                    <Sun className="h-5 w-5 transition-transform duration-200" />
+                  ) : (
+                    <Moon className="h-5 w-5 transition-transform duration-200" />
+                  )}
+                </Button>
+              )}
             </div>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMobileMenuOpen}
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
+            <div className="flex items-center gap-2 md:hidden">
+              {/* Theme Toggle - Mobile */}
+              {mounted && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleTheme}
+                  className="active:scale-95 touch-manipulation"
+                  aria-label="Toggle theme"
+                >
+                  {theme === "dark" ? (
+                    <Sun className="h-5 w-5 transition-transform duration-200" />
+                  ) : (
+                    <Moon className="h-5 w-5 transition-transform duration-200" />
+                  )}
+                </Button>
               )}
-            </Button>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                className="active:scale-95 touch-manipulation"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMobileMenuOpen}
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </motion.nav>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isMobileMenuOpen && (
           <>
             {/* Backdrop */}
@@ -155,34 +218,29 @@ export function Navigation() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+              style={{ WebkitTapHighlightColor: "transparent" }}
             />
 
             {/* Menu */}
             <motion.div
-              initial={{ opacity: 0, x: "100%" }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-50 w-full max-w-sm md:hidden bg-background border-l shadow-2xl"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{
+                type: "spring",
+                damping: 30,
+                stiffness: 300,
+                mass: 0.8,
+              }}
+              className="fixed inset-y-0 right-0 z-50 w-full md:hidden bg-background shadow-2xl will-change-transform"
+              style={{ touchAction: "pan-y" }}
             >
-              <div className="flex flex-col h-full p-6">
-                {/* Close button */}
-                <div className="flex justify-end mb-8">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    aria-label="Close menu"
-                    className="rounded-full"
-                  >
-                    <X className="h-6 w-6" />
-                  </Button>
-                </div>
-
+              <div className="flex flex-col h-full bg-gradient-to-br from-background via-background to-accent/5">
                 {/* Menu items */}
-                <div className="flex flex-col gap-6">
+                <nav className="flex flex-col p-8 pt-24 gap-3 flex-1 overflow-y-auto">
                   {navItems.map((item, index) => (
                     <motion.a
                       key={item.label}
@@ -194,20 +252,19 @@ export function Navigation() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
-                        delay: index * 0.1,
-                        type: "spring",
-                        stiffness: 200,
+                        delay: index * 0.05,
+                        duration: 0.2,
                       }}
-                      whileTap={{ scale: 0.95 }}
-                      className="text-2xl font-medium cursor-pointer hover:text-primary transition-colors flex items-center gap-3 py-3 border-b border-border hover:border-primary/50"
+                      className="text-2xl font-semibold cursor-pointer text-foreground hover:text-primary active:text-primary transition-all flex items-center gap-4 p-5 rounded-xl bg-card/50 hover:bg-card active:bg-card border border-border/50 hover:border-primary/50 shadow-sm hover:shadow-md active:scale-[0.98] touch-manipulation"
+                      style={{ WebkitTapHighlightColor: "transparent" }}
                     >
                       <span className="text-xl">
                         {["✨", "🚀", "💡", "📬"][index]}
                       </span>
-                      {item.label}
+                      <span>{item.label}</span>
                     </motion.a>
                   ))}
-                </div>
+                </nav>
               </div>
             </motion.div>
           </>

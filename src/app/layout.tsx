@@ -89,11 +89,31 @@ export const metadata: Metadata = {
     canonical: "https://www.sulav-neupane.com.np",
   },
   category: "Technology",
+  icons: {
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   other: {
     "og:image:width": "1200",
     "og:image:height": "630",
     "og:image:alt": "Sulav Neupane - Full Stack Web Developer Portfolio",
     "twitter:image:alt": "Sulav Neupane - Full Stack Web Developer Portfolio",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+    viewportFit: "cover",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Sulav Neupane",
+  },
+  formatDetection: {
+    telephone: false,
   },
 };
 
@@ -102,7 +122,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Local Business Schema - Freelance Developer
+  // Local Business Schema
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -240,9 +260,6 @@ export default function RootLayout({
     inLanguage: "en-US",
   };
 
-  // FAQ Schema removed from layout - it's only rendered on the home page (page.tsx)
-  // to avoid duplication on all pages
-
   // BreadcrumbList Schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -277,6 +294,25 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+        <meta name="apple-mobile-web-app-title" content="Sulav Neupane" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta
+          name="theme-color"
+          content="#000000"
+          media="(prefers-color-scheme: dark)"
+        />
+        <meta
+          name="theme-color"
+          content="#ffffff"
+          media="(prefers-color-scheme: light)"
+        />
+      </head>
       <body className={inter.className}>
         {/* Structured Data Schemas */}
         <Script
@@ -297,7 +333,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {/* FAQ Schema is rendered only on home page via page.tsx */}
         <Script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -307,8 +342,8 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
+          enableSystem={false}
+          storageKey="portfolio-theme"
         >
           {children}
         </ThemeProvider>

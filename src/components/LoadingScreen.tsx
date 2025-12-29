@@ -74,7 +74,7 @@ export function LoadingScreen() {
 
         setTimeout(() => {
           setIsLoading(false);
-        }, remaining + 300); // Extra 300ms for smooth transition
+        }, remaining + 300);
       }
       setProgress(Math.round(currentProgress));
     }, intervalTime);
