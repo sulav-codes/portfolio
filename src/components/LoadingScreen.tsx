@@ -14,14 +14,9 @@ const codeSnippets = [
 
 export function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentSnippet, setCurrentSnippet] = useState(0);
   const [typedText, setTypedText] = useState("");
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     // Typing animation
@@ -83,8 +78,6 @@ export function LoadingScreen() {
       clearInterval(progressInterval);
     };
   }, []);
-
-  if (!isMounted) return null;
 
   return (
     <AnimatePresence mode="wait">

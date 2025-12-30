@@ -20,7 +20,9 @@ export function Footer() {
             transition={{ duration: 0.5 }}
             className="text-xs sm:text-sm text-muted-foreground flex flex-wrap items-center justify-center sm:justify-start gap-2 text-center sm:text-left"
           >
-            <span className="whitespace-nowrap">© 2025 Sulav Neupane.</span>
+            <span className="whitespace-nowrap">
+              © {new Date().getFullYear()} Sulav Neupane.
+            </span>
             <span className="flex items-center gap-2 whitespace-nowrap">
               Built with
               <motion.span

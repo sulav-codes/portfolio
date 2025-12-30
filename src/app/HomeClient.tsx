@@ -31,7 +31,7 @@ export default function HomeClient() {
       <SEO />
       <LoadingScreen />
       <EasterEggs />
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isLoaded && (
           <motion.main
             initial={{ opacity: 0 }}
