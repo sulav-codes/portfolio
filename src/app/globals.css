@@ -72,13 +72,6 @@ html {
   backface-visibility: hidden;
 }
 
-/* Optimize animations */
-@media (hover: hover) and (pointer: fine) {
-  * {
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-}
-
 /* Touch-friendly elements */
 @media (max-width: 768px) {
   button,
@@ -104,12 +97,6 @@ nav,
 header {
   will-change: transform;
   transform: translateZ(0);
-}
-
-/* Improve scrolling performance */
-section {
-  will-change: auto;
-  contain: layout style paint;
 }
 
 /* Reduce motion for accessibility */

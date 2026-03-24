@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { smoothScrollToId } from "@/lib/utils";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -59,8 +60,7 @@ export function Navigation() {
   }, [isMobileMenuOpen]);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: "smooth" });
+    smoothScrollToId(href, { offset: 86, duration: 650 });
     setIsMobileMenuOpen(false);
   };
 
@@ -69,7 +69,7 @@ export function Navigation() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 will-change-transform ${
+        className={`fixed top-0 left-0 right-0 z-60 transition-all duration-300 will-change-transform ${
           isScrolled
             ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg"
             : "bg-transparent"
@@ -88,7 +88,7 @@ export function Navigation() {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                smoothScrollToId("#hero-top", { offset: 0, duration: 550 });
               }}
               className="cursor-pointer group"
               whileHover={{ scale: 1.02 }}
@@ -238,7 +238,7 @@ export function Navigation() {
               className="fixed inset-y-0 right-0 z-50 w-full md:hidden bg-background shadow-2xl will-change-transform"
               style={{ touchAction: "pan-y" }}
             >
-              <div className="flex flex-col h-full bg-gradient-to-br from-background via-background to-accent/5">
+              <div className="flex flex-col h-full bg-linear-to-br from-background via-background to-accent/5">
                 {/* Menu items */}
                 <nav className="flex flex-col p-8 pt-24 gap-3 flex-1 overflow-y-auto">
                   {navItems.map((item, index) => (

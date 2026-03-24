@@ -67,7 +67,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqSchema),
         }}
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
       />
       <HomeClient />
     </>

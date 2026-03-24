@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import {
   ArrowDown,
   Github,
@@ -11,6 +16,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { smoothScrollToId } from "@/lib/utils";
 import dynamic from "next/dynamic";
 
 // Dynamically import Three.js component (client-side only)
@@ -26,13 +32,22 @@ const ThreeJSPhoto = dynamic(
         <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
       </div>
     ),
-  }
+  },
 );
 
-export function Hero() {
+type HeroProps = {
+  allowAmbientEffects?: boolean;
+};
+
+export function Hero({ allowAmbientEffects = true }: HeroProps) {
   const [particles, setParticles] = useState<
     Array<{ x: number; y: number; size: number; delay: number }>
   >([]);
+  const [hasMounted, setHasMounted] = useState(false);
+  const [isLowEndDevice, setIsLowEndDevice] = useState(false);
+  const [ambientEffectsEnabled, setAmbientEffectsEnabled] = useState(false);
+  const [showThreePhoto, setShowThreePhoto] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -41,11 +56,85 @@ export function Hero() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
+  const shouldReduceEffects =
+    hasMounted && (prefersReducedMotion || isLowEndDevice);
+  const shouldAnimateAmbient =
+    allowAmbientEffects && ambientEffectsEnabled && !shouldReduceEffects;
 
   useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!allowAmbientEffects) {
+      setAmbientEffectsEnabled(false);
+      return;
+    }
+
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const deviceMemory = nav.deviceMemory ?? 8;
+    const cpuCores = navigator.hardwareConcurrency ?? 8;
+    const lowEnd = cpuCores <= 4 || deviceMemory <= 4;
+    setIsLowEndDevice(lowEnd);
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let idleId: number | undefined;
+
+    const enableAmbient = () => setAmbientEffectsEnabled(true);
+
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(enableAmbient, { timeout: 1200 });
+    } else {
+      timeoutId = setTimeout(enableAmbient, 500);
+    }
+
+    return () => {
+      if (idleId !== undefined && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [allowAmbientEffects]);
+
+  useEffect(() => {
+    if (!allowAmbientEffects) {
+      setShowThreePhoto(false);
+      return;
+    }
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let idleId: number | undefined;
+    const enableThreePhoto = () => setShowThreePhoto(true);
+
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(enableThreePhoto, { timeout: 1500 });
+    } else {
+      timeoutId = setTimeout(enableThreePhoto, 700);
+    }
+
+    return () => {
+      if (idleId !== undefined && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [allowAmbientEffects]);
+
+  useEffect(() => {
+    if (!ambientEffectsEnabled) {
+      setParticles([]);
+      return;
+    }
+
     // Generate floating particles (fewer on mobile for performance)
     const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 5 : 10;
+    const particleCount = shouldReduceEffects
+      ? isMobile
+        ? 2
+        : 4
+      : isMobile
+        ? 5
+        : 10;
     const newParticles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -53,15 +142,15 @@ export function Hero() {
       delay: Math.random() * 5,
     }));
     setParticles(newParticles);
-  }, []);
+  }, [ambientEffectsEnabled, shouldReduceEffects]);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: "smooth" });
+    smoothScrollToId(id, { offset: 86, duration: 650 });
   };
 
   return (
     <section
+      id="hero-top"
       ref={heroRef}
       className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 sm:py-20 md:py-24 will-change-transform"
       style={{ transform: "translateZ(0)" }}
@@ -80,16 +169,24 @@ export function Hero() {
             width: particle.size,
             height: particle.size,
           }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: 5 + particle.delay,
-            repeat: Infinity,
-            delay: particle.delay,
-            ease: "easeInOut",
-          }}
+          animate={
+            shouldAnimateAmbient
+              ? {
+                  y: [0, -30, 0],
+                  opacity: [0.2, 0.5, 0.2],
+                }
+              : { y: 0, opacity: 0.2 }
+          }
+          transition={
+            shouldAnimateAmbient
+              ? {
+                  duration: 5 + particle.delay,
+                  repeat: Infinity,
+                  delay: particle.delay,
+                  ease: "easeInOut",
+                }
+              : { duration: 0.2 }
+          }
         />
       ))}
 
@@ -100,19 +197,31 @@ export function Hero() {
           background:
             "linear-gradient(135deg, transparent 0%, hsl(var(--primary) / 0.1) 50%, transparent 100%)",
         }}
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
+        animate={
+          shouldAnimateAmbient
+            ? {
+                backgroundPosition: ["0% 0%", "100% 100%"],
+              }
+            : { backgroundPosition: "0% 0%" }
+        }
+        transition={
+          shouldAnimateAmbient
+            ? {
+                duration: 20,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }
+            : { duration: 0.2 }
+        }
       />
 
       <motion.div
         className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 will-change-transform"
-        style={{ y, opacity, transform: "translateZ(0)" }}
+        style={
+          shouldReduceEffects
+            ? { transform: "translateZ(0)" }
+            : { y, opacity, transform: "translateZ(0)" }
+        }
       >
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 max-w-7xl mx-auto">
           {/* Left side - Text content (reordered to come first) */}
@@ -218,9 +327,9 @@ export function Hero() {
 
             {/* Description */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              initial={{ opacity: 0.95 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
               className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0 px-4 sm:px-0"
             >
               Building innovative web applications with modern technologies.
@@ -246,7 +355,7 @@ export function Hero() {
                   >
                     {tech}
                   </motion.span>
-                )
+                ),
               )}
             </motion.div>
 
@@ -318,20 +427,26 @@ export function Hero() {
             <div className="relative w-full aspect-square">
               {/* Three.js 3D Photo */}
               <div className="absolute inset-0 rounded-xl sm:rounded-2xl overflow-hidden border border-primary/20 bg-background/50 backdrop-blur-sm">
-                <ThreeJSPhoto />
+                {showThreePhoto ? (
+                  <ThreeJSPhoto />
+                ) : (
+                  <div className="w-full h-full bg-linear-to-br from-primary/10 via-background to-primary/5" />
+                )}
               </div>
 
               {/* Floating badges */}
               <motion.div
                 className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg"
-                animate={{
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={shouldAnimateAmbient ? { y: [0, -10, 0] } : { y: 0 }}
+                transition={
+                  shouldAnimateAmbient
+                    ? {
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                    : { duration: 0.2 }
+                }
               >
                 <span className="text-xs sm:text-sm font-semibold text-primary">
                   React
@@ -340,15 +455,17 @@ export function Hero() {
 
               <motion.div
                 className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg"
-                animate={{
-                  y: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  delay: 0.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={shouldAnimateAmbient ? { y: [0, 10, 0] } : { y: 0 }}
+                transition={
+                  shouldAnimateAmbient
+                    ? {
+                        duration: 3,
+                        delay: 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                    : { duration: 0.2 }
+                }
               >
                 <span className="text-xs sm:text-sm font-semibold text-primary">
                   Three.js
@@ -357,15 +474,17 @@ export function Hero() {
 
               <motion.div
                 className="absolute top-1/3 -left-4 sm:-left-6 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg hidden md:block"
-                animate={{
-                  x: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  delay: 1,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={shouldAnimateAmbient ? { x: [0, -10, 0] } : { x: 0 }}
+                transition={
+                  shouldAnimateAmbient
+                    ? {
+                        duration: 3,
+                        delay: 1,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                    : { duration: 0.2 }
+                }
               >
                 <span className="text-xs sm:text-sm font-semibold text-primary">
                   TypeScript
@@ -374,15 +493,17 @@ export function Hero() {
 
               <motion.div
                 className="absolute top-1/4 -right-4 sm:-right-6 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg hidden md:block"
-                animate={{
-                  x: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  delay: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={shouldAnimateAmbient ? { x: [0, 10, 0] } : { x: 0 }}
+                transition={
+                  shouldAnimateAmbient
+                    ? {
+                        duration: 3,
+                        delay: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                    : { duration: 0.2 }
+                }
               >
                 <span className="text-xs sm:text-sm font-semibold text-primary">
                   Next.js
@@ -392,15 +513,23 @@ export function Hero() {
               {/* Orbital glow effect */}
               <motion.div
                 className="absolute -inset-4 sm:-inset-8 bg-primary/10 blur-2xl sm:blur-3xl rounded-full -z-10"
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={
+                  shouldAnimateAmbient
+                    ? {
+                        scale: [1, 1.1, 1],
+                        opacity: [0.3, 0.5, 0.3],
+                      }
+                    : { scale: 1, opacity: 0.3 }
+                }
+                transition={
+                  shouldAnimateAmbient
+                    ? {
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                    : { duration: 0.2 }
+                }
               />
             </div>
           </motion.div>
@@ -408,8 +537,12 @@ export function Hero() {
       </motion.div>
 
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        animate={shouldAnimateAmbient ? { y: [0, 10, 0] } : { y: 0 }}
+        transition={
+          shouldAnimateAmbient
+            ? { duration: 2, repeat: Infinity }
+            : { duration: 0.2 }
+        }
         className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:block"
       >
         <ArrowDown className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
