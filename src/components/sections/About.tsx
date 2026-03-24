@@ -1,7 +1,16 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Camera, Music, Plane, Film, Rocket, Brain, BrainCircuit } from "lucide-react";
+import {
+  Camera,
+  Music,
+  Plane,
+  Film,
+  Rocket,
+  Brain,
+  BrainCircuit,
+} from "lucide-react";
 
 const interests = [
   {
@@ -57,6 +66,41 @@ const skills = [
 ];
 
 export function About() {
+  const spotifyPlaylistUrl =
+    "https://open.spotify.com/playlist/2QIJzGympUS3x9xJwLNrj8?si=afa93f40b0fd43ce";
+  const musicClickCountRef = useRef(0);
+  const musicClickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (musicClickTimerRef.current) {
+        clearTimeout(musicClickTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleInterestClick = (label: string) => {
+    if (label !== "Music") return;
+
+    musicClickCountRef.current += 1;
+
+    if (musicClickTimerRef.current) {
+      clearTimeout(musicClickTimerRef.current);
+    }
+
+    if (musicClickCountRef.current === 3) {
+      window.open(spotifyPlaylistUrl, "_blank", "noopener,noreferrer");
+      musicClickCountRef.current = 0;
+      musicClickTimerRef.current = null;
+      return;
+    }
+
+    musicClickTimerRef.current = setTimeout(() => {
+      musicClickCountRef.current = 0;
+      musicClickTimerRef.current = null;
+    }, 550);
+  };
+
   return (
     <section id="about" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6">
       <div className="container mx-auto max-w-6xl">
@@ -89,9 +133,10 @@ export function About() {
           className="max-w-3xl mx-auto mb-12 sm:mb-16"
         >
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed text-center mb-4 sm:mb-6">
-            I'm just a guy who loves building, fixing and exploring stuffs. I like to keep things simple and organized. I'm excited
-            to continue learning and growing as a developer, and to contribute
-            to projects that make a positive impact.
+            I'm just a guy who loves building, fixing and exploring stuffs. I
+            like to keep things simple and organized. I'm excited to continue
+            learning and growing as a developer, and to contribute to projects
+            that make a positive impact.
           </p>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed text-center">
             Outside of coding, I'm usually lost in music, films, photography, or
@@ -177,7 +222,10 @@ export function About() {
                 whileTap={{ scale: 0.95 }}
                 className="group"
               >
-                <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary/50 border border-border hover:border-primary/50 hover:bg-secondary transition-all cursor-pointer">
+                <div
+                  onClick={() => handleInterestClick(interest.label)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary/50 border border-border hover:border-primary/50 hover:bg-secondary transition-all cursor-pointer"
+                >
                   <motion.div
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
