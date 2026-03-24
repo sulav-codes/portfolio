@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Camera, Music, Plane, Film } from "lucide-react";
+import { Camera, Music, Plane, Film, Rocket, Brain, BrainCircuit } from "lucide-react";
 
 const interests = [
   {
-    icon: Code2,
-    label: "Programming",
-    color: "text-blue-500",
-    gradient: "from-blue-500 to-cyan-500",
+    icon: Music,
+    label: "Music",
+    color: "text-pink-500",
+    gradient: "from-pink-500 to-rose-500",
   },
   {
     icon: Camera,
@@ -17,22 +17,22 @@ const interests = [
     gradient: "from-green-500 to-emerald-500",
   },
   {
-    icon: Music,
-    label: "Music",
-    color: "text-pink-500",
-    gradient: "from-pink-500 to-rose-500",
-  },
-  {
-    icon: Plane,
-    label: "Traveling",
-    color: "text-orange-500",
-    gradient: "from-orange-500 to-amber-500",
-  },
-  {
     icon: Film,
     label: "Movies",
     color: "text-purple-500",
     gradient: "from-purple-500 to-pink-500",
+  },
+  {
+    icon: Rocket,
+    label: "Space",
+    color: "text-blue-500",
+    gradient: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: BrainCircuit,
+    label: "Wondering",
+    color: "text-orange-500",
+    gradient: "from-orange-500 to-amber-500",
   },
 ];
 
@@ -89,16 +89,16 @@ export function About() {
           className="max-w-3xl mx-auto mb-12 sm:mb-16"
         >
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed text-center mb-4 sm:mb-6">
-            I'm a BCA student from Nepal with an insatiable curiosity for
-            technology and creativity. My journey began with writing my first
-            "Hello World" and has evolved into building efficient, practical,
-            and creative projects using modern web technologies.
+            I'm just a guy who loves building, fixing and exploring stuffs. I like to keep things simple and organized. I'm excited
+            to continue learning and growing as a developer, and to contribute
+            to projects that make a positive impact.
           </p>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed text-center">
-            When I'm not coding, you'll find me with a camera pointed at the
-            Himalayas, jamming on my guitar, or watching cinematic masterpieces.
-            I believe the best innovations happen at the intersection of passion
-            and purpose.
+            Outside of coding, I'm usually lost in music, films, photography, or
+            random deep dives into ideas that don't have immediate answers. I
+            don't like staying on the surface of anything for too long. I'm
+            still figuring things out, building, experimenting, and improving as
+            I go. <br /> That's kind of the whole point!!!
           </p>
         </motion.div>
 
