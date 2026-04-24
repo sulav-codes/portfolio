@@ -3,12 +3,20 @@
     "id": 1,
     "title": "Smart QR Menu System(FyattaQR)",
     "description": "Digital menu system with QR code integration for restaurants, allowing contactless ordering with payment and real-time menu management",
-    "techStack": ["Next.js", "Express.js", "MySQL","Tailwind CSS"],
-    "liveUrl": null,
-    "githubUrl": "https://github.com/sulav-codes/smart-qr-menu-system"
+    "techStack": ["Next.js", "Express.js", "PostgreSQL", "Socket.io", "Docker", "Tailwind CSS, GitHub Actions, Joi"],
+    "liveUrl": "https://fyatta-qr.vercel.app/",
+    "githubUrl": "https://github.com/sulav-codes/fyatta-qr"
   },
   {
     "id": 2,
+    "title": "Talking PDF",
+    "description": "A modern, full-stack RAG (Retrieval Augmented Generation) application that lets you chat with your PDF documents using AI. Upload PDFs, ask questions, and get accurate answers powered by Groq's Free model.",
+    "techStack": ["Next.js", "FastAPI", "Groq API", "Pinecone", "Tailwind CSS"],
+    "liveUrl": "https://talking-pdf-sable.vercel.app/",
+    "githubUrl": "https://github.com/sulav-codes/talking-pdf"
+  },
+  {
+    "id": 3,
     "title": "Kaushal - Skill Management Platform",
     "description": "Platform for managing and showcasing professional skills, connecting learners with opportunities",
     "techStack": ["Tailwind CSS", "React", "Node.js", "Express", "MySQL"],
@@ -16,7 +24,7 @@
     "githubUrl": "https://github.com/sulav-codes/Kaushal"
   },
   {
-    "id": 3,
+    "id": 4,
     "title": "Blog Platform",
     "description": "Full-featured blogging platform with user authentication, rich text editor, and content management",
     "techStack": ["JavaScript", "Node.js", "Express", "MySQL", "EJS"],
@@ -24,7 +32,7 @@
     "githubUrl": "https://github.com/sulav-codes/blog_platform"
   },
   {
-    "id": 4,
+    "id": 5,
     "title": "e-Sewa Payment Integration",
     "description": "PHP implementation for integrating eSewa payment gateway in web applications for secure online transactions",
     "techStack": ["PHP", "MySQL", "JavaScript", "HTML/CSS"],
@@ -32,7 +40,7 @@
     "githubUrl": "https://github.com/sulav-codes/EsewaIntegration"
   },
   {
-    "id": 5,
+    "id": 6,
     "title": "Mental Health Support Platform",
     "description": "Web platform providing mental health resources, support groups, and professional consultation services",
     "techStack": ["PHP", "MySQL", "JavaScript", "HTML/CSS"],
@@ -40,7 +48,7 @@
     "githubUrl": "https://github.com/sulav-codes/Mental-Health-Support-Platform"
   },
   {
-    "id": 6,
+    "id": 7,
     "title": "Admin Dashboard",
     "description": "Responsive admin dashboard with analytics, user management, and data visualization capabilities",
     "techStack": ["Vite", "React", "Chart.js", "Tailwind CSS"],
