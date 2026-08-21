@@ -100,7 +100,12 @@ export function About() {
   };
 
   return (
-    <section id="about" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6">
+    <section id="about" className="relative py-16 sm:py-20 lg:py-24 px-4 sm:px-6 overflow-hidden">
+      {/* Section ambient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="ambient-orb" style={{ width: '400px', height: '400px', background: 'var(--orb-3)', top: '10%', right: '-80px', animation: 'orb-drift-2 20s ease-in-out infinite' }} />
+        <div className="ambient-orb" style={{ width: '350px', height: '350px', background: 'var(--orb-4)', bottom: '5%', left: '-60px', animation: 'orb-drift-1 24s ease-in-out infinite' }} />
+      </div>
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <motion.div
@@ -165,7 +170,7 @@ export function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 * index }}
                 whileHover={{ scale: 1.03, y: -5 }}
-                className="bg-secondary/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border hover:border-primary/50 transition-all hover:shadow-lg group"
+                className="glass glass-interactive rounded-2xl p-4 sm:p-6 glass-shimmer group"
               >
                 <motion.h4
                   className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-primary"
@@ -182,7 +187,7 @@ export function About() {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.05 * i }}
-                      className="text-xs sm:text-sm px-2 sm:px-3 py-1 bg-background rounded-full border border-border hover:border-primary/50 hover:bg-primary/10 transition-all cursor-default"
+                      className="text-xs sm:text-sm px-2 sm:px-3 py-1 glass-badge rounded-full hover:border-primary/50 hover:bg-primary/10 transition-all cursor-default"
                     >
                       {item}
                     </motion.span>
@@ -222,7 +227,7 @@ export function About() {
               >
                 <div
                   onClick={() => handleInterestClick(interest.label)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-secondary/50 border border-border hover:border-primary/50 hover:bg-secondary transition-all cursor-pointer"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full glass-badge hover:border-primary/50 transition-all cursor-pointer"
                 >
                   <motion.div
                     whileHover={{ rotate: 360 }}

@@ -18,8 +18,13 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 bg-secondary/20"
+      className="relative py-16 sm:py-20 lg:py-24 px-4 sm:px-6 overflow-hidden"
     >
+      {/* Ambient orbs for this section */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="ambient-orb" style={{ width: '500px', height: '500px', background: 'var(--orb-1)', top: '-60px', left: '20%', animation: 'orb-drift-3 22s ease-in-out infinite' }} />
+        <div className="ambient-orb" style={{ width: '350px', height: '350px', background: 'var(--orb-2)', bottom: '-40px', right: '-60px', animation: 'orb-drift-2 18s ease-in-out infinite' }} />
+      </div>
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +63,7 @@ export function Projects() {
               }}
               className="h-full"
             >
-              <Card className="h-full flex flex-col hover:shadow-2xl transition-all duration-300 group border border-border hover:border-primary/50 bg-background/50 backdrop-blur-sm">
+              <Card className="h-full flex flex-col glass glass-interactive glass-shimmer transition-all duration-300 group rounded-2xl">
                 <CardHeader className="pb-3">
                   <CardTitle className="group-hover:text-primary transition-colors flex items-center gap-2 text-lg sm:text-xl">
                     {project.title}
@@ -88,7 +93,7 @@ export function Projects() {
                       >
                         <Badge
                           variant="secondary"
-                          className="text-[10px] sm:text-xs cursor-default hover:bg-primary/20 transition-colors"
+                          className="text-[10px] sm:text-xs cursor-default glass-badge hover:bg-primary/20 transition-colors"
                         >
                           {tech}
                         </Badge>

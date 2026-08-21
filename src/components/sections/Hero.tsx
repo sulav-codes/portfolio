@@ -142,8 +142,16 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
       className="relative min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-24 will-change-transform"
       style={{ transform: "translateZ(0)" }}
     >
-      {/* Animated background layers */}
-      <div className="absolute inset-0 bg-linear-to-br from-background via-background to-primary/5" />
+      {/* Ambient orb lighting layers */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="ambient-orb ambient-orb-1" />
+        <div className="ambient-orb ambient-orb-2" />
+        <div className="ambient-orb ambient-orb-3" />
+        <div className="ambient-orb ambient-orb-4" />
+      </div>
+
+      {/* Subtle base gradient */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, transparent 0%, hsl(var(--primary) / 0.04) 50%, transparent 100%)' }} />
 
       {/* Floating particles */}
       {particles.map((particle, i) => (
@@ -210,18 +218,18 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
             className="flex-1 w-full max-w-[280px] sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg"
           >
             <div className="relative w-full aspect-square">
-              {/* Three.js 3D Photo */}
-              <div className="absolute inset-0 rounded-xl sm:rounded-2xl overflow-hidden border border-primary/20 bg-background/50 backdrop-blur-sm">
+              {/* Three.js 3D Photo — glass frame */}
+              <div className="absolute h-full inset-0 rounded-2xl sm:rounded-3xl overflow-hidden glass" style={{ boxShadow: 'var(--glass-shadow-deep)' }}>
                 {showThreePhoto ? (
                   <ThreeJSPhoto />
                 ) : (
-                  <div className="w-full h-full bg-linear-to-br from-primary/10 via-background to-primary/5" />
+                  <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.04) 100%)' }} />
                 )}
               </div>
 
               {/* Floating badges */}
               <motion.div
-                className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg"
+                className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 glass-badge rounded-xl sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 glass-shimmer"
                 animate={shouldAnimateAmbient ? { y: [0, -10, 0] } : { y: 0 }}
                 transition={
                   shouldAnimateAmbient
@@ -235,7 +243,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
               </motion.div>
 
               <motion.div
-                className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg"
+                className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 glass-badge rounded-xl sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 glass-shimmer"
                 animate={shouldAnimateAmbient ? { y: [0, 10, 0] } : { y: 0 }}
                 transition={
                   shouldAnimateAmbient
@@ -254,7 +262,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
               </motion.div>
 
               <motion.div
-                className="absolute top-1/3 -left-4 sm:-left-6 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg hidden md:block"
+                className="absolute top-1/3 -left-4 sm:-left-6 glass-badge rounded-xl sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 glass-shimmer hidden md:block"
                 animate={shouldAnimateAmbient ? { x: [0, -10, 0] } : { x: 0 }}
                 transition={
                   shouldAnimateAmbient
@@ -273,7 +281,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
               </motion.div>
 
               <motion.div
-                className="absolute top-1/4 -right-4 sm:-right-6 bg-background/90 backdrop-blur-md rounded-lg sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 border border-primary/30 shadow-lg hidden md:block"
+                className="absolute top-1/4 -right-4 sm:-right-6 glass-badge rounded-xl sm:rounded-2xl px-2 py-1 sm:px-4 sm:py-2 glass-shimmer hidden md:block"
                 animate={shouldAnimateAmbient ? { x: [0, 10, 0] } : { x: 0 }}
                 transition={
                   shouldAnimateAmbient
@@ -320,7 +328,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] sm:text-xs md:text-sm font-medium">
+              <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full glass-badge text-primary text-[10px] sm:text-xs md:text-sm font-medium">
                 <LuSparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4" />
                 Available for opportunities
               </span>
@@ -434,7 +442,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.8 + index * 0.1 }}
-                    className="px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-medium text-foreground"
+                    className="px-3 py-1.5 rounded-full glass-badge text-xs sm:text-sm font-medium text-foreground glass-shimmer"
                   >
                     {tech}
                   </motion.span>

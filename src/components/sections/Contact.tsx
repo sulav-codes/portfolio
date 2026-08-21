@@ -29,8 +29,13 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 bg-secondary/20"
+      className="relative py-16 sm:py-20 lg:py-24 px-4 sm:px-6 overflow-hidden"
     >
+      {/* Ambient orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="ambient-orb" style={{ width: '450px', height: '450px', background: 'var(--orb-2)', top: '-50px', right: '5%', animation: 'orb-drift-1 20s ease-in-out infinite' }} />
+        <div className="ambient-orb" style={{ width: '300px', height: '300px', background: 'var(--orb-3)', bottom: '0', left: '10%', animation: 'orb-drift-3 16s ease-in-out infinite' }} />
+      </div>
       <div className="container mx-auto max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -108,7 +113,7 @@ export function Contact() {
                   transition: { duration: 0.3 },
                 }}
                 whileTap={{ scale: 0.9 }}
-                className={`text-muted-foreground transition-colors ${social.color} relative p-3 sm:p-4 rounded-full bg-secondary/50 hover:bg-secondary`}
+                className={`text-muted-foreground transition-colors ${social.color} relative p-3 sm:p-4 rounded-full glass-badge hover:scale-110`}
               >
                 <motion.div
                   animate={{
@@ -135,7 +140,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.6, type: "spring" }}
             whileHover={{ scale: 1.02 }}
-            className="text-center mt-4 sm:mt-8 bg-secondary/30 rounded-xl p-4 sm:p-6 border border-border"
+            className="text-center mt-4 sm:mt-8 glass rounded-2xl p-4 sm:p-6 glass-shimmer"
           >
             <motion.p
               className="text-xs sm:text-sm text-muted-foreground mb-2"

@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Smart QR Menu System(FyattaQR)",
     "description": "Digital menu system with QR code integration for restaurants, allowing contactless ordering with payment and real-time menu management",
-    "techStack": ["Next.js", "Express.js", "PostgreSQL", "Socket.io", "Docker", "Tailwind CSS, GitHub Actions, Joi"],
+    "techStack": ["Next.js", "Express.js", "PostgreSQL", "Socket.io", "Docker", "Tailwind CSS", "GitHub Actions", "Joi"],
     "liveUrl": "https://fyatta-qr.vercel.app/",
     "githubUrl": "https://github.com/sulav-codes/fyatta-qr"
   },

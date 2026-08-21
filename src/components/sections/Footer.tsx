@@ -10,7 +10,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="py-8 sm:py-12 px-4 border-t">
+    <footer className="relative py-8 sm:py-12 px-4 overflow-hidden" style={{ borderTop: '1px solid var(--glass-border-subtle)' }}>
       <div className="container mx-auto max-w-7xl">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-4">
           <motion.p
@@ -52,7 +52,8 @@ export function Footer() {
               onClick={scrollToTop}
               size="icon"
               variant="outline"
-              className="rounded-full h-10 w-10 sm:h-11 sm:w-11 shadow-lg hover:shadow-xl transition-all touch-manipulation"
+              className="rounded-full h-10 w-10 sm:h-11 sm:w-11 glass-badge transition-all touch-manipulation"
+              style={{ boxShadow: 'var(--glass-shadow-hover)' }}
               aria-label="Scroll to top"
             >
               <motion.div
