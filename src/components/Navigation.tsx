@@ -189,7 +189,7 @@ export function Navigation() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-white/60 dark:bg-black/60 backdrop-blur-md md:hidden"
               style={{ WebkitTapHighlightColor: "transparent" }}
             />
 
