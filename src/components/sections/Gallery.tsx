@@ -2,16 +2,17 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Camera, Music, Palette } from "lucide-react";
+import { LuCamera, LuMusic, LuPalette } from "react-icons/lu";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import galleryData from "@/data/gallery.json";
+import Image from "next/image";
 
 type Category = "all" | "photography" | "music" | "artwork";
 
 const categoryIcons = {
-  photography: Camera,
-  music: Music,
-  artwork: Palette,
+  photography: LuCamera,
+  music: LuMusic,
+  artwork: LuPalette,
 };
 
 export function Gallery() {
@@ -90,10 +91,13 @@ export function Gallery() {
                 whileHover={{ scale: 1.03 }}
                 className="relative group overflow-hidden rounded-lg sm:rounded-xl cursor-pointer aspect-square shadow-lg hover:shadow-2xl transition-shadow"
               >
-                <img
+                <Image
                   src={item.imageUrl}
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="transition-transform duration-500 group-hover:scale-110"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  objectFit="cover"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 sm:p-4 md:p-6">
                   <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">

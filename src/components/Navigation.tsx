@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { LuMenu, LuX, LuMoon, LuSun } from "react-icons/lu";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { smoothScrollToId } from "@/lib/utils";
@@ -21,7 +21,11 @@ export function Navigation() {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true);
+      const frame = requestAnimationFrame(() => {
+        setMounted(true);
+      });
+
+      return () => cancelAnimationFrame(frame);
   }, []);
 
   const toggleTheme = () => {
@@ -165,9 +169,9 @@ export function Navigation() {
                   aria-label="Toggle theme"
                 >
                   {theme === "dark" ? (
-                    <Sun className="h-5 w-5 transition-transform duration-200" />
+                    <LuSun className="h-5 w-5 transition-transform duration-200" />
                   ) : (
-                    <Moon className="h-5 w-5 transition-transform duration-200" />
+                    <LuMoon className="h-5 w-5 transition-transform duration-200" />
                   )}
                 </Button>
               )}
@@ -184,9 +188,9 @@ export function Navigation() {
                   aria-label="Toggle theme"
                 >
                   {theme === "dark" ? (
-                    <Sun className="h-5 w-5 transition-transform duration-200" />
+                    <LuSun className="h-5 w-5 transition-transform duration-200" />
                   ) : (
-                    <Moon className="h-5 w-5 transition-transform duration-200" />
+                    <LuMoon className="h-5 w-5 transition-transform duration-200" />
                   )}
                 </Button>
               )}
@@ -200,9 +204,9 @@ export function Navigation() {
                 aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? (
-                  <X className="h-6 w-6" />
+                  <LuX className="h-6 w-6" />
                 ) : (
-                  <Menu className="h-6 w-6" />
+                  <LuMenu className="h-6 w-6" />
                 )}
               </Button>
             </div>

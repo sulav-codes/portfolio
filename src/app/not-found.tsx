@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Home, ArrowLeft, Search, Film } from "lucide-react";
+import { LuHouse, LuArrowLeft, LuSearch, LuFilm } from "react-icons/lu";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -140,7 +140,7 @@ export default function NotFound() {
               }}
             >
               <div className="p-4 bg-primary/10 rounded-2xl backdrop-blur-sm border border-primary/20">
-                <Search className="w-8 h-8 text-primary" />
+                <LuSearch className="w-8 h-8 text-primary" />
               </div>
             </motion.div>
 
@@ -158,7 +158,7 @@ export default function NotFound() {
               }}
             >
               <div className="p-4 bg-purple-500/10 rounded-2xl backdrop-blur-sm border border-purple-500/20">
-                <Film className="w-8 h-8 text-purple-500" />
+                <LuFilm className="w-8 h-8 text-purple-500" />
               </div>
             </motion.div>
           </div>
@@ -176,7 +176,7 @@ export default function NotFound() {
                 className="group relative overflow-hidden bg-linear-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-500 text-white px-8 py-6 text-lg"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <Home className="w-5 h-5" />
+                  <LuHouse className="w-5 h-5" />
                   Back to Home
                 </span>
                 <motion.div
@@ -195,7 +195,7 @@ export default function NotFound() {
                 className="group border-2 border-primary/30 hover:border-primary hover:bg-primary/5 px-8 py-6 text-lg"
               >
                 <span className="flex items-center gap-2">
-                  <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                  <LuArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                   View Projects
                 </span>
               </Button>

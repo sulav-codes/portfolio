@@ -3,42 +3,40 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
-  Camera,
-  Music,
-  Plane,
-  Film,
-  Rocket,
-  Brain,
-  BrainCircuit,
-} from "lucide-react";
+  LuCamera,
+  LuMusic,
+  LuFilm,
+  LuRocket,
+} from "react-icons/lu";
+import { ImWondering } from "react-icons/im";
 
 const interests = [
   {
-    icon: Music,
+    icon: LuMusic,
     label: "Music",
     color: "text-pink-500",
     gradient: "from-pink-500 to-rose-500",
   },
   {
-    icon: Camera,
+    icon: LuCamera,
     label: "Photography",
     color: "text-green-500",
     gradient: "from-green-500 to-emerald-500",
   },
   {
-    icon: Film,
+    icon: LuFilm,
     label: "Movies",
     color: "text-purple-500",
     gradient: "from-purple-500 to-pink-500",
   },
   {
-    icon: Rocket,
+    icon: LuRocket,
     label: "Space",
     color: "text-blue-500",
     gradient: "from-blue-500 to-cyan-500",
   },
   {
-    icon: BrainCircuit,
+    icon: ImWondering,
     label: "Wondering",
     color: "text-orange-500",
     gradient: "from-orange-500 to-amber-500",
@@ -133,17 +131,17 @@ export function About() {
           className="max-w-3xl mx-auto mb-12 sm:mb-16"
         >
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed text-center mb-4 sm:mb-6">
-            I'm just a guy who loves building, fixing and exploring stuffs. I
-            like to keep things simple and organized. I'm excited to continue
+            I&#39;m just a guy who loves building, fixing and exploring stuffs. I
+            like to keep things simple and organized. I&#39;m excited to continue
             learning and growing as a developer, and to contribute to projects
             that make a positive impact.
           </p>
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed text-center">
-            Outside of coding, I'm usually lost in music, films, photography, or
-            random deep dives into ideas that don't have immediate answers. I
-            don't like staying on the surface of anything for too long. I'm
+            Outside of coding, I&#39;m usually lost in music, films, photography, or
+            random deep dives into ideas that don&#39;t have immediate answers. I
+            don&#39;t like staying on the surface of anything for too long. I&#39;m
             still figuring things out, building, experimenting, and improving as
-            I go. <br /> That's kind of the whole point!!!
+            I go. <br /> That&#39;s kind of the whole point!!!
           </p>
         </motion.div>
 

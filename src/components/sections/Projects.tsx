@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { LuExternalLink, LuGithub } from "react-icons/lu";
 import {
   Card,
   CardContent,
@@ -114,7 +114,7 @@ export function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <ExternalLink className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                          <LuExternalLink className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                           Live Demo
                         </a>
                       </Button>
@@ -136,7 +136,7 @@ export function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Github className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                        <LuGithub className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                         GitHub
                       </a>
                     </Button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUp, Heart } from "lucide-react";
+import { LuArrowUp, LuHeart } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -36,7 +36,7 @@ export function Footer() {
                 }}
                 className="inline-block"
               >
-                <Heart className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-red-500 text-red-500" />
+                <LuHeart className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-red-500 text-red-500" />
               </motion.span>
               and Next.js
             </span>
@@ -63,7 +63,7 @@ export function Footer() {
                 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <ArrowUp className="h-4 w-4 sm:h-5 sm:w-5" />
+                <LuArrowUp className="h-4 w-4 sm:h-5 sm:w-5" />
               </motion.div>
             </Button>
           </motion.div>

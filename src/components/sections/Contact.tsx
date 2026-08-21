@@ -1,25 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Instagram, Send } from "lucide-react";
+import { LuGithub, LuLinkedin, LuInstagram, LuSend } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 
 const socialLinks = [
   {
     name: "GitHub",
-    icon: Github,
+    icon: LuGithub,
     url: "https://github.com/sulav-codes",
     color: "hover:text-[#333] dark:hover:text-white",
   },
   {
     name: "LinkedIn",
-    icon: Linkedin,
+    icon: LuLinkedin,
     url: "https://linkedin.com/in/sulav-neupane",
     color: "hover:text-[#0077b5]",
   },
   {
     name: "Instagram",
-    icon: Instagram,
+    icon: LuInstagram,
     url: "https://instagram.com/alright_.y._then",
     color: "hover:text-[#E4405F]",
   },
@@ -40,7 +40,7 @@ export function Contact() {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
-            Let's Connect
+            Let&#39;s Connect
           </h2>
           <motion.div
             className="w-16 sm:w-20 h-1 bg-linear-to-r from-primary to-primary/50 mx-auto rounded-full mb-4 sm:mb-6"
@@ -51,7 +51,7 @@ export function Contact() {
           />
           <p className="text-sm sm:text-base text-muted-foreground px-4">
             Have a project in mind or just want to chat about tech, movies, or
-            photography? I'd love to hear from you!
+            photography? I&#39;d love to hear from you!
           </p>
         </motion.div>
 
@@ -83,7 +83,7 @@ export function Contact() {
                   whileHover={{ x: "100%" }}
                   transition={{ duration: 0.5 }}
                 />
-                <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:rotate-45 transition-transform duration-300" />
+                <LuSend className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:rotate-45 transition-transform duration-300" />
                 <span className="truncate">sulavneupane1905@gmail.com</span>
               </a>
             </Button>

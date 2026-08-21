@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Share2, Facebook, Twitter, Linkedin, Link2 } from "lucide-react";
+import { LuShare2, LuLink2, LuFacebook, LuTwitter, LuLinkedin } from "react-icons/lu";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -12,8 +12,6 @@ export function SocialShare() {
 
   const pageUrl = "https://www.sulav-neupane.com.np";
   const pageTitle = "Sulav Neupane - Full Stack Developer";
-  const pageDescription =
-    "Check out this amazing portfolio of a Full Stack Developer from Nepal!";
 
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
@@ -83,7 +81,7 @@ export function SocialShare() {
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-blue-500/10 transition-colors group"
             aria-label="Share on Facebook"
           >
-            <Facebook className="h-4.5 w-4.5 text-[#1877F2] group-hover:scale-110 transition-transform" />
+            <LuFacebook className="h-4.5 w-4.5 text-[#1877F2] group-hover:scale-110 transition-transform" />
             <span className="text-xs sm:text-sm font-medium">Facebook</span>
           </motion.button>
 
@@ -94,7 +92,7 @@ export function SocialShare() {
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-sky-500/10 transition-colors group"
             aria-label="Share on Twitter"
           >
-            <Twitter className="h-4.5 w-4.5 text-[#1DA1F2] group-hover:scale-110 transition-transform" />
+            <LuTwitter className="h-4.5 w-4.5 text-[#1DA1F2] group-hover:scale-110 transition-transform" />
             <span className="text-xs sm:text-sm font-medium">Twitter</span>
           </motion.button>
 
@@ -105,7 +103,7 @@ export function SocialShare() {
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-blue-600/10 transition-colors group"
             aria-label="Share on LinkedIn"
           >
-            <Linkedin className="h-4.5 w-4.5 text-[#0A66C2] group-hover:scale-110 transition-transform" />
+            <LuLinkedin className="h-4.5 w-4.5 text-[#0A66C2] group-hover:scale-110 transition-transform" />
             <span className="text-xs sm:text-sm font-medium">LinkedIn</span>
           </motion.button>
 
@@ -116,7 +114,7 @@ export function SocialShare() {
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-colors group"
             aria-label="Copy link"
           >
-            <Link2 className="h-4.5 w-4.5 text-primary group-hover:scale-110 transition-transform" />
+            <LuLink2 className="h-4.5 w-4.5 text-primary group-hover:scale-110 transition-transform" />
             <span className="text-xs sm:text-sm font-medium">
               {copied ? "Copied!" : "Copy Link"}
             </span>
@@ -140,7 +138,7 @@ export function SocialShare() {
             animate={{ rotate: showShare ? 45 : 0 }}
             transition={{ duration: 0.3 }}
           >
-            <Share2 className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
+            <LuShare2 className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
           </motion.div>
         </Button>
       </motion.div>

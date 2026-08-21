@@ -8,18 +8,17 @@ import {
   useTransform,
 } from "framer-motion";
 import {
-  ArrowDown,
-  Github,
-  Linkedin,
-  Mail,
-  Sparkles,
-  Rocket,
-} from "lucide-react";
+  LuArrowDown,
+  LuGithub,
+  LuLinkedin,
+  LuMail,
+  LuSparkles,
+  LuRocket,
+} from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { smoothScrollToId } from "@/lib/utils";
 import dynamic from "next/dynamic";
 
-// Dynamically import Three.js component (client-side only)
 const ThreeJSPhoto = dynamic(
   () =>
     import("@/components/ThreeJSPhoto").then((mod) => ({
@@ -44,7 +43,6 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
     Array<{ x: number; y: number; size: number; delay: number }>
   >([]);
   const [hasMounted, setHasMounted] = useState(false);
-  const [isLowEndDevice, setIsLowEndDevice] = useState(false);
   const [ambientEffectsEnabled, setAmbientEffectsEnabled] = useState(false);
   const [showThreePhoto, setShowThreePhoto] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -56,93 +54,82 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
+
+  const nav =
+    typeof navigator !== "undefined"
+      ? (navigator as Navigator & { deviceMemory?: number })
+      : null;
+  const isLowEndDevice =
+    (nav?.hardwareConcurrency ?? 8) <= 4 || (nav?.deviceMemory ?? 8) <= 4;
+
   const shouldReduceEffects =
     hasMounted && (prefersReducedMotion || isLowEndDevice);
   const shouldAnimateAmbient =
     allowAmbientEffects && ambientEffectsEnabled && !shouldReduceEffects;
 
   useEffect(() => {
-    setHasMounted(true);
-  }, []);
+    const ambientTimeoutId: ReturnType<typeof setTimeout>[] = [];
+    let ambientIdleId: number | undefined;
+    let threeIdleId: number | undefined;
 
-  useEffect(() => {
-    if (!allowAmbientEffects) {
-      setAmbientEffectsEnabled(false);
-      return;
-    }
+    const mountTimer = setTimeout(() => {
+      setHasMounted(true);
 
-    const nav = navigator as Navigator & { deviceMemory?: number };
-    const deviceMemory = nav.deviceMemory ?? 8;
-    const cpuCores = navigator.hardwareConcurrency ?? 8;
-    const lowEnd = cpuCores <= 4 || deviceMemory <= 4;
-    setIsLowEndDevice(lowEnd);
+      if (!allowAmbientEffects) {
+        setAmbientEffectsEnabled(false);
+        setShowThreePhoto(false);
+        setParticles([]);
+        return;
+      }
 
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-    let idleId: number | undefined;
+      const enableAmbient = () => {
+        setAmbientEffectsEnabled(true);
 
-    const enableAmbient = () => setAmbientEffectsEnabled(true);
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isLowEndDevice
+          ? isMobile
+            ? 2
+            : 4
+          : isMobile
+            ? 5
+            : 10;
 
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(enableAmbient, { timeout: 1200 });
-    } else {
-      timeoutId = setTimeout(enableAmbient, 500);
-    }
+        setParticles(
+          Array.from({ length: particleCount }, () => ({
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+            size: Math.random() * 3 + 2,
+            delay: Math.random() * 5,
+          })),
+        );
+      };
+
+      const enableThreePhoto = () => setShowThreePhoto(true);
+
+      if ("requestIdleCallback" in window) {
+        ambientIdleId = window.requestIdleCallback(enableAmbient, {
+          timeout: 1200,
+        });
+        threeIdleId = window.requestIdleCallback(enableThreePhoto, {
+          timeout: 1500,
+        });
+      } else {
+        ambientTimeoutId.push(setTimeout(enableAmbient, 500));
+        ambientTimeoutId.push(setTimeout(enableThreePhoto, 700));
+      }
+    }, 0);
 
     return () => {
-      if (idleId !== undefined && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
+      clearTimeout(mountTimer);
+      ambientTimeoutId.forEach(clearTimeout);
+      if (ambientIdleId !== undefined && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(ambientIdleId);
       }
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [allowAmbientEffects]);
-
-  useEffect(() => {
-    if (!allowAmbientEffects) {
-      setShowThreePhoto(false);
-      return;
-    }
-
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-    let idleId: number | undefined;
-    const enableThreePhoto = () => setShowThreePhoto(true);
-
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(enableThreePhoto, { timeout: 1500 });
-    } else {
-      timeoutId = setTimeout(enableThreePhoto, 700);
-    }
-
-    return () => {
-      if (idleId !== undefined && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
+      if (threeIdleId !== undefined && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(threeIdleId);
       }
-      if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [allowAmbientEffects]);
-
-  useEffect(() => {
-    if (!ambientEffectsEnabled) {
-      setParticles([]);
-      return;
-    }
-
-    // Generate floating particles (fewer on mobile for performance)
-    const isMobile = window.innerWidth < 768;
-    const particleCount = shouldReduceEffects
-      ? isMobile
-        ? 2
-        : 4
-      : isMobile
-        ? 5
-        : 10;
-    const newParticles = Array.from({ length: particleCount }, () => ({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 2,
-      delay: Math.random() * 5,
-    }));
-    setParticles(newParticles);
-  }, [ambientEffectsEnabled, shouldReduceEffects]);
+  }, [allowAmbientEffects, isLowEndDevice]);
 
   const scrollToSection = (id: string) => {
     smoothScrollToId(id, { offset: 86, duration: 650 });
@@ -171,10 +158,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
           }}
           animate={
             shouldAnimateAmbient
-              ? {
-                  y: [0, -30, 0],
-                  opacity: [0.2, 0.5, 0.2],
-                }
+              ? { y: [0, -30, 0], opacity: [0.2, 0.5, 0.2] }
               : { y: 0, opacity: 0.2 }
           }
           transition={
@@ -199,18 +183,12 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
         }}
         animate={
           shouldAnimateAmbient
-            ? {
-                backgroundPosition: ["0% 0%", "100% 100%"],
-              }
+            ? { backgroundPosition: ["0% 0%", "100% 100%"] }
             : { backgroundPosition: "0% 0%" }
         }
         transition={
           shouldAnimateAmbient
-            ? {
-                duration: 20,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }
+            ? { duration: 20, repeat: Infinity, repeatType: "reverse" }
             : { duration: 0.2 }
         }
       />
@@ -247,11 +225,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
                 animate={shouldAnimateAmbient ? { y: [0, -10, 0] } : { y: 0 }}
                 transition={
                   shouldAnimateAmbient
-                    ? {
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }
+                    ? { duration: 3, repeat: Infinity, ease: "easeInOut" }
                     : { duration: 0.2 }
                 }
               >
@@ -317,31 +291,23 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
                 </span>
               </motion.div>
 
-              {/* Orbital glow effect */}
               <motion.div
                 className="absolute -inset-4 sm:-inset-8 bg-primary/10 blur-2xl sm:blur-3xl rounded-full -z-10"
                 animate={
                   shouldAnimateAmbient
-                    ? {
-                        scale: [1, 1.1, 1],
-                        opacity: [0.3, 0.5, 0.3],
-                      }
+                    ? { scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }
                     : { scale: 1, opacity: 0.3 }
                 }
                 transition={
                   shouldAnimateAmbient
-                    ? {
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }
+                    ? { duration: 4, repeat: Infinity, ease: "easeInOut" }
                     : { duration: 0.2 }
                 }
               />
             </div>
           </motion.div>
 
-          {/* Right side - Text content (reordered to come first) */}
+          {/* Right side - Text content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -355,7 +321,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
               transition={{ delay: 0.4 }}
             >
               <span className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] sm:text-xs md:text-sm font-medium">
-                <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4" />
+                <LuSparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4" />
                 Available for opportunities
               </span>
             </motion.div>
@@ -488,7 +454,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
                 onClick={() => scrollToSection("projects")}
                 className="group text-xs sm:text-sm md:text-base w-full sm:w-auto h-10 sm:h-11 md:h-12"
               >
-                <Rocket className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                <LuRocket className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
                 Explore My Work
               </Button>
               <Button
@@ -497,7 +463,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
                 onClick={() => scrollToSection("contact")}
                 className="group text-xs sm:text-sm md:text-base w-full sm:w-auto h-10 sm:h-11 md:h-12"
               >
-                <Mail className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform" />
+                <LuMail className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform" />
                 Let&apos;s Connect
               </Button>
             </motion.div>
@@ -518,7 +484,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Github className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                <LuGithub className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </motion.a>
               <motion.a
                 href="https://linkedin.com/in/sulav-neupane"
@@ -529,7 +495,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
                 whileHover={{ scale: 1.1, rotate: -5 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Linkedin className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                <LuLinkedin className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </motion.a>
             </motion.div>
           </motion.div>
@@ -545,7 +511,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
         }
         className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 hidden md:block"
       >
-        <ArrowDown className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
+        <LuArrowDown className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
       </motion.div>
     </section>
   );

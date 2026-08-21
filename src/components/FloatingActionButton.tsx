@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUp } from "lucide-react";
+import { LuArrowUp } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 
 export function FloatingActionButton() {
@@ -45,7 +45,7 @@ export function FloatingActionButton() {
               aria-label="Scroll to top"
               className="rounded-full h-12 w-12 md:h-14 md:w-14 shadow-lg bg-primary hover:bg-primary/90"
             >
-              <ArrowUp className="h-5 w-5 md:h-6 md:w-6" />
+              <LuArrowUp className="h-5 w-5 md:h-6 md:w-6" />
             </Button>
           </motion.div>
         </motion.div>

@@ -34,7 +34,7 @@ A modern, interactive portfolio website built with Next.js 16, featuring stunnin
 - **Component Library**: Radix UI (Accordion, Dialog, Tabs, etc.)
 - **Animations**: Framer Motion
 - **3D Graphics**: Three.js + React Three Fiber + Drei
-- **Icons**: Lucide React
+- **Icons**: React Icons
 
 ### Development Tools
 
