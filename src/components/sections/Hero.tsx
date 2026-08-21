@@ -139,7 +139,7 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
     <section
       id="hero-top"
       ref={heroRef}
-      className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 sm:py-20 md:py-24 will-change-transform"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-24 will-change-transform"
       style={{ transform: "translateZ(0)" }}
     >
       {/* Animated background layers */}

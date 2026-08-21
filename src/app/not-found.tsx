@@ -70,7 +70,7 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-background flex items-center justify-center">
+    <div className="relative h-screen w-full overflow-hidden bg-background flex items-center justify-center">
       {/* Animated background */}
       <canvas
         ref={canvasRef}
@@ -81,7 +81,7 @@ export default function NotFound() {
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20">
+      <div className="relative z-10 container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ export default function NotFound() {
         >
           {/* 404 Number with glitch effect */}
           <motion.div
-            className="relative mb-8"
+            className="relative mb-2"
             animate={{
               textShadow: [
                 "0 0 20px rgba(139, 92, 246, 0.5)",
@@ -104,7 +104,7 @@ export default function NotFound() {
               ease: "easeInOut",
             }}
           >
-            <h1 className="text-[12rem] sm:text-[16rem] md:text-[20rem] font-bold leading-none bg-linear-to-br from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <h1 className="text-[8rem] sm:text-[10rem] md:text-[13rem] font-bold leading-none bg-linear-to-br from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
               404
             </h1>
           </motion.div>
@@ -114,19 +114,19 @@ export default function NotFound() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="mb-8"
+            className="mb-4"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               Lost in the Digital Space?
             </h2>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Looks like this page took a detour to another dimension. 
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Looks like this page took a detour to another dimension.
               Don&apos;t worry, even the best navigators get lost sometimes.
             </p>
           </motion.div>
 
           {/* Floating icons */}
-          <div className="relative h-32 mb-12">
+          <div className="relative h-24 mb-6">
             <motion.div
               className="absolute left-1/4 top-0"
               animate={{
@@ -139,8 +139,8 @@ export default function NotFound() {
                 ease: "easeInOut",
               }}
             >
-              <div className="p-4 bg-primary/10 rounded-2xl backdrop-blur-sm border border-primary/20">
-                <LuSearch className="w-8 h-8 text-primary" />
+              <div className="p-3 bg-primary/10 rounded-2xl backdrop-blur-sm border border-primary/20">
+                <LuSearch className="w-6 h-6 text-primary" />
               </div>
             </motion.div>
 
@@ -157,8 +157,8 @@ export default function NotFound() {
                 delay: 0.5,
               }}
             >
-              <div className="p-4 bg-purple-500/10 rounded-2xl backdrop-blur-sm border border-purple-500/20">
-                <LuFilm className="w-8 h-8 text-purple-500" />
+              <div className="p-3 bg-purple-500/10 rounded-2xl backdrop-blur-sm border border-purple-500/20">
+                <LuFilm className="w-6 h-6 text-purple-500" />
               </div>
             </motion.div>
           </div>
@@ -207,7 +207,7 @@ export default function NotFound() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.6 }}
-            className="mt-16 p-6 rounded-2xl bg-linear-to-br from-primary/5 to-purple-500/5 border border-primary/10 backdrop-blur-sm max-w-2xl mx-auto"
+            className="mt-6 p-4 rounded-2xl bg-linear-to-br from-primary/5 to-purple-500/5 border border-primary/10 dark:border-primary/10 backdrop-blur-sm max-w-2xl mx-auto"
           >
             <p className="text-sm text-muted-foreground">
               <span className="text-primary font-semibold">Fun Fact:</span> The

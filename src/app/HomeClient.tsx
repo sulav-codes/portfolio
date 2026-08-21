@@ -71,12 +71,10 @@ export default function HomeClient() {
         initial={false}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="min-h-screen"
+        className="min-h-screen relative"
       >
         <Navigation />
-        <div>
-          <Hero />
-        </div>
+        <Hero />
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}

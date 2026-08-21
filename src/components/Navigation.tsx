@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LuMenu, LuX, LuMoon, LuSun } from "react-icons/lu";
-import { useTheme } from "next-themes";
+import { LuMenu, LuX } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { smoothScrollToId } from "@/lib/utils";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -18,20 +18,13 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-      const frame = requestAnimationFrame(() => {
-        setMounted(true);
-      });
-
-      return () => cancelAnimationFrame(frame);
+    const frame = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(frame);
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-  };
 
   useEffect(() => {
     let ticking = false;
@@ -86,7 +79,7 @@ export function Navigation() {
             : "none",
         }}
       >
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="relative container mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14 sm:h-16">
             <motion.a
               href="#"
@@ -160,40 +153,12 @@ export function Navigation() {
               ))}
 
               {/* Theme Toggle - Desktop */}
-              {mounted && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleTheme}
-                  className="ml-2"
-                  aria-label="Toggle theme"
-                >
-                  {theme === "dark" ? (
-                    <LuSun className="h-5 w-5 transition-transform duration-200" />
-                  ) : (
-                    <LuMoon className="h-5 w-5 transition-transform duration-200" />
-                  )}
-                </Button>
-              )}
+              {mounted && <ThemeToggle />}
             </div>
 
             <div className="flex items-center gap-2 md:hidden">
               {/* Theme Toggle - Mobile */}
-              {mounted && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleTheme}
-                  className="active:scale-95 touch-manipulation"
-                  aria-label="Toggle theme"
-                >
-                  {theme === "dark" ? (
-                    <LuSun className="h-5 w-5 transition-transform duration-200" />
-                  ) : (
-                    <LuMoon className="h-5 w-5 transition-transform duration-200" />
-                  )}
-                </Button>
-              )}
+              {mounted && <ThemeToggle />}
 
               <Button
                 variant="ghost"
