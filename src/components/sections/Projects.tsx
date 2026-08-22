@@ -63,7 +63,7 @@ export function Projects() {
               }}
               className="h-full"
             >
-              <Card className="h-full flex flex-col glass glass-interactive glass-shimmer transition-all duration-300 group rounded-2xl">
+              <Card className="h-full flex flex-col glass glass-interactive glass-shimmer transition-all duration-300 group rounded-4xl will-change-transform">
                 <CardHeader className="pb-3">
                   <CardTitle className="group-hover:text-primary transition-colors flex items-center gap-2 text-lg sm:text-xl">
                     {project.title}
@@ -82,22 +82,14 @@ export function Projects() {
                 </CardHeader>
                 <CardContent className="grow pb-3">
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {project.techStack.map((tech, techIndex) => (
-                      <motion.div
+                    {project.techStack.map((tech) => (
+                      <Badge
                         key={tech}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: techIndex * 0.05 }}
-                        whileHover={{ scale: 1.1 }}
+                        variant="secondary"
+                        className="text-[10px] sm:text-xs cursor-default glass-badge hover:bg-primary/20 transition-all hover:scale-105"
                       >
-                        <Badge
-                          variant="secondary"
-                          className="text-[10px] sm:text-xs cursor-default glass-badge hover:bg-primary/20 transition-colors"
-                        >
-                          {tech}
-                        </Badge>
-                      </motion.div>
+                        {tech}
+                      </Badge>
                     ))}
                   </div>
                 </CardContent>

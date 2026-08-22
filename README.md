@@ -1,4 +1,4 @@
-# 🚀 Portfolio v2
+# 🚀 Portfolio v3
 
 A modern, interactive portfolio website built with Next.js 16, featuring stunning 3D animations, dark mode support, and a seamless user experience.
 
@@ -9,14 +9,14 @@ A modern, interactive portfolio website built with Next.js 16, featuring stunnin
 
 ## ✨ Features
 
-- **🎨 Modern UI/UX**: Clean and responsive design with Tailwind CSS v4
-- **🌓 Dark Mode**: Seamless theme switching with next-themes
-- **🎭 3D Animations**: Interactive Three.js photo sphere using React Three Fiber
-- **⚡ Performance Optimized**: Built with Next.js 16 App Router for optimal performance
-- **📱 Fully Responsive**: Mobile-first design that works on all devices
+- **🎨 iOS 26 Liquid Glass UI**: Next-generation fluid UI featuring dynamic lensing, specular edge highlights, and squishy organic gel interactions.
+- **🌓 Dark Mode**: Seamless theme switching with next-themes and custom dark-mode glass styling
+- **🎭 3D Animations**: Interactive Three.js photo sphere using React Three Fiber, optimized for 60fps on mobile and desktop
+- **⚡ Ultra-Optimized**: Next.js 16 App Router combined with hardware-accelerated CSS and minimal JavaScript overhead
+- **📱 Fully Responsive**: Mobile-first design that works beautifully on all devices
 - **🎯 SEO Optimized**: Built-in SEO components and metadata management
 - **🎪 Easter Eggs**: Hidden interactive elements for engaging user experience
-- **🔄 Smooth Animations**: Powered by Framer Motion for fluid transitions
+- **🔄 Fluid Interactions**: Powered by Framer Motion and native CSS keyframes for organic hover states
 - **📊 Analytics**: Integrated Vercel Speed Insights
 - **♿ Accessible**: Built with Radix UI primitives for accessibility
 
@@ -46,7 +46,7 @@ A modern, interactive portfolio website built with Next.js 16, featuring stunnin
 ## 📁 Project Structure
 
 ```
-portfolio-v2/
+portfolio/
 ├── src/
 │   ├── app/                    # Next.js app directory
 │   │   ├── globals.css        # Global styles

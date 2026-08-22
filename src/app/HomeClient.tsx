@@ -76,6 +76,7 @@ export default function HomeClient() {
         <Navigation />
         <Hero />
         <motion.div
+          className="relative"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -84,6 +85,7 @@ export default function HomeClient() {
           <About />
         </motion.div>
         <motion.div
+          className="relative"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -92,6 +94,7 @@ export default function HomeClient() {
           <Projects />
         </motion.div>
         <motion.div
+          className="relative"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -100,6 +103,7 @@ export default function HomeClient() {
           <Contact />
         </motion.div>
         <motion.div
+          className="relative"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

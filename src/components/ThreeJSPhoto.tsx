@@ -27,7 +27,7 @@ function SpinningSphere() {
 
   return (
     <mesh ref={meshRef} position={[0, -2.8, 0]}>
-      <sphereGeometry args={[1, 64, 64]} />
+      <sphereGeometry args={[1, 32, 32]} />
       <MeshDistortMaterial
         color="#8b5cf6"
         attach="material"
@@ -82,7 +82,7 @@ function PhotoCard({ imageUrl }: PhotoDisplayProps) {
         ref={frameRef}
         args={[3.2, 3.2, 0.1]}
         radius={0.12}
-        smoothness={4}
+        smoothness={2}
         position={[0, 0, -0.1]}
       >
         <meshStandardMaterial
@@ -167,7 +167,7 @@ export function ThreeJSPhoto() {
   return (
     <Canvas
       camera={{ position: [0, 0.2, 5], fov: 45 }}
-      dpr={[1, 2]}
+      dpr={Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.5)}
       style={{
         width: "100%",
         height: "100%",

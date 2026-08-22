@@ -151,7 +151,13 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
       </div>
 
       {/* Subtle base gradient */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, transparent 0%, hsl(var(--primary) / 0.04) 50%, transparent 100%)' }} />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(135deg, transparent 0%, hsl(var(--primary) / 0.04) 50%, transparent 100%)",
+        }}
+      />
 
       {/* Floating particles */}
       {particles.map((particle, i) => (
@@ -219,11 +225,20 @@ export function Hero({ allowAmbientEffects = true }: HeroProps) {
           >
             <div className="relative w-full aspect-square">
               {/* Three.js 3D Photo — glass frame */}
-              <div className="absolute h-full inset-0 rounded-2xl sm:rounded-3xl overflow-hidden glass" style={{ boxShadow: 'var(--glass-shadow-deep)' }}>
+              <div
+                className="absolute h-full inset-0 rounded-2xl sm:rounded-3xl overflow-hidden glass"
+                style={{ boxShadow: "var(--glass-shadow-deep)" }}
+              >
                 {showThreePhoto ? (
                   <ThreeJSPhoto />
                 ) : (
-                  <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.04) 100%)' }} />
+                  <div
+                    className="w-full h-full"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, hsl(var(--primary)/0.12) 0%, hsl(var(--primary)/0.04) 100%)",
+                    }}
+                  />
                 )}
               </div>
 
